@@ -6,7 +6,7 @@ $id = (int)($_GET['id'] ?? 0);
 // Sepete ekleme
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ekle'])) {
     if (!csrf_dogrula()) {
-        die('CSRF doğrulama hatası');
+        die('Sicherheitsprüfung fehlgeschlagen (CSRF).');
     }
     $adet = max(1, (int)($_POST['adet'] ?? 1));
     sepete_ekle($id, $adet);
@@ -17,9 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ekle'])) {
 $u = urun_getir($id);
 if (!$u) {
     http_response_code(404);
-    $sayfaBaslik = 'Ürün bulunamadı';
+    $sayfaBaslik = 'Produkt nicht gefunden';
     require __DIR__ . '/includes/header.php';
-    echo '<div class="bos">Ürün bulunamadı. <a href="index.php">Ana sayfaya dön</a></div>';
+    echo '<div class="bos">Produkt nicht gefunden. <a href="index.php">Zur Startseite</a></div>';
     require __DIR__ . '/includes/footer.php';
     exit;
 }
@@ -41,25 +41,25 @@ require __DIR__ . '/includes/header.php';
         <p style="margin:14px 0;color:#444"><?= htmlspecialchars($u['aciklama']) ?></p>
 
         <ul class="urun-ozellik">
-            <li><span>Renk</span><span><?= htmlspecialchars($u['renk']) ?></span></li>
-            <li><span>Kapasite</span><span><?= htmlspecialchars($u['kapasite']) ?></span></li>
-            <li><span>Malzeme</span><span><?= htmlspecialchars($u['malzeme']) ?></span></li>
-            <li><span>Stok</span><span><?= $u['stok'] > 0 ? $u['stok'] . ' adet' : 'Tükendi' ?></span></li>
+            <li><span>Farbe</span><span><?= htmlspecialchars($u['renk']) ?></span></li>
+            <li><span>Fassungsvermögen</span><span><?= htmlspecialchars($u['kapasite']) ?></span></li>
+            <li><span>Material</span><span><?= htmlspecialchars($u['malzeme']) ?></span></li>
+            <li><span>Lagerbestand</span><span><?= $u['stok'] > 0 ? $u['stok'] . ' Stück' : 'Ausverkauft' ?></span></li>
         </ul>
 
         <form method="post" class="adet-sec">
             <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
-            <label for="adet">Adet:</label>
+            <label for="adet">Menge:</label>
             <select name="adet" id="adet">
                 <?php for ($i = 1; $i <= min(10, $u['stok']); $i++): ?>
                     <option value="<?= $i ?>"><?= $i ?></option>
                 <?php endfor; ?>
             </select>
             <button type="submit" name="ekle" value="1" class="btn" <?= $u['stok'] < 1 ? 'disabled' : '' ?>>
-                Sepete ekle
+                In den Warenkorb
             </button>
         </form>
-        <a href="index.php" style="color:var(--gri);font-size:14px">← Alışverişe devam et</a>
+        <a href="index.php" style="color:var(--gri);font-size:14px">← Weiter einkaufen</a>
     </div>
 </div>
 <?php require __DIR__ . '/includes/footer.php'; ?>

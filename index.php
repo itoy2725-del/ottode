@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
-$sayfaBaslik = 'Ana Sayfa';
+$sayfaBaslik = 'Startseite';
 
 $q = trim($_GET['q'] ?? '');
 $kategori = trim($_GET['kategori'] ?? '');
@@ -30,7 +30,7 @@ require __DIR__ . '/includes/header.php';
 
 <!-- Kategori menüsü -->
 <div style="margin-bottom:20px;padding:12px 0;border-bottom:1px solid var(--cizgi)">
-    <a href="index.php" class="<?= $kategori === '' ? 'kategori-aktif' : 'kategori-link' ?>">Tümü</a>
+    <a href="index.php" class="<?= $kategori === '' ? 'kategori-aktif' : 'kategori-link' ?>">Alle</a>
     <?php foreach ($kategoriler as $k): ?>
         <a href="index.php?kategori=<?= urlencode($k) ?>" class="<?= $kategori === $k ? 'kategori-aktif' : 'kategori-link' ?>">
             <?= htmlspecialchars($k) ?>
@@ -41,17 +41,17 @@ require __DIR__ . '/includes/header.php';
 <h1 class="baslik">
     <?php 
     if ($q !== '') {
-        echo '"' . htmlspecialchars($q) . '" için sonuçlar';
+        echo 'Suchergebnisse für "' . htmlspecialchars($q) . '"';
     } elseif ($kategori !== '') {
         echo htmlspecialchars($kategori);
     } else {
-        echo 'Öne çıkan ürünler';
+        echo 'Entdecke unsere Produkte';
     }
     ?>
 </h1>
 
 <?php if (empty($urunler)): ?>
-    <div class="bos">Aramana uygun ürün bulunamadı. <a href="index.php">Tümünü gör</a></div>
+    <div class="bos">Keine passenden Produkte gefunden. <a href="index.php">Alle anzeigen</a></div>
 <?php else: ?>
 <div class="grid">
     <?php foreach ($urunler as $u): ?>

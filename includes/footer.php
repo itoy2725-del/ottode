@@ -3,18 +3,18 @@
         <div class="container footer-inner">
             <div>
                 <strong><?= SITE_ADI ?></strong>
-                <p>Demo e-ticaret projesi. Gerçek bir mağaza değildir.</p>
+                <p>Demo-Onlineshop. Kein echter Shop.</p>
             </div>
             <div class="footer-links">
-                <a href="index.php">Ana Sayfa</a>
-                <a href="sepet.php">Sepet</a>
-                <a href="adres.php">Hesabım</a>
+                <a href="index.php">Startseite</a>
+                <a href="sepet.php">Warenkorb</a>
+                <a href="hesabim.php">Mein Konto</a>
             </div>
             <div class="footer-pay">
-                <span>Ödeme:</span> Visa · Mastercard · PayPal · Havale
+                <span>Zahlung:</span> Visa · Mastercard · PayPal · Überweisung
             </div>
         </div>
-        <div class="footer-bottom">© <?= date('Y') ?> <?= SITE_ADI ?> — tüm hakları saklıdır.</div>
+        <div class="footer-bottom">© <?= date('Y') ?> <?= SITE_ADI ?> — Alle Rechte vorbehalten.</div>
     </footer>
 </body>
 </html>

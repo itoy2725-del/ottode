@@ -1,5 +1,5 @@
 <?php
-// Basit ürün veritabanı (demo). İleride DB'ye taşınacak.
+// Ürün veritabanı (demo)
 return [
     1 => [
         'id'    => 1,
@@ -10,10 +10,10 @@ return [
         'eski_fiyat' => 29.99,
         'resim' => 'https://picsum.photos/seed/carrybag/600/600',
         'kapasite' => '5 L',
-        'malzeme'  => 'Polyester / Alüminyum',
-        'aciklama' => 'Katlanabilir, su itici, taşıma saplı alışveriş sepeti. Hafif alüminyum çerçeveli.',
+        'malzeme'  => 'Polyester / Aluminium',
+        'aciklama' => 'Faltbarer, wasserabweisender Einkaufskorb mit Tragegriff und leichtem Aluminiumrahmen.',
         'stok'  => 12,
-        'kategori' => 'Sepetler',
+        'kategori' => 'Körbe',
     ],
     2 => [
         'id'    => 2,
@@ -25,27 +25,27 @@ return [
         'resim' => 'https://picsum.photos/seed/carrybag2/600/600',
         'kapasite' => '22 L',
         'malzeme'  => 'Polyester',
-        'aciklama' => 'Büyük boy katlanabilir alışveriş sepeti, dayanıklı kumaş.',
+        'aciklama' => 'Großer faltbarer Einkaufskorb aus strapazierfähigem Stoff.',
         'stok'  => 7,
-        'kategori' => 'Sepetler',
+        'kategori' => 'Körbe',
     ],
     3 => [
         'id'    => 3,
-        'ad'    => 'reisenthel coolerbag Soğutucu Çanta',
+        'ad'    => 'reisenthel coolerbag Kühltasche',
         'marka' => 'reisenthel',
         'renk'  => 'rot',
         'fiyat' => 19.99,
         'eski_fiyat' => 24.99,
         'resim' => 'https://picsum.photos/seed/cooler/600/600',
         'kapasite' => '20 L',
-        'malzeme'  => 'Polyester / İzolasyon',
-        'aciklama' => 'İzolasyonlu soğutucu çanta, piknik ve market için ideal.',
+        'malzeme'  => 'Polyester / Isolierung',
+        'aciklama' => 'Isolierte Kühltasche, ideal für Picknick und Einkauf.',
         'stok'  => 20,
-        'kategori' => 'Soğutucu Çantalar',
+        'kategori' => 'Kühltaschen',
     ],
     4 => [
         'id'    => 4,
-        'ad'    => 'reisenthel shopper E1 Alışveriş Çantası',
+        'ad'    => 'reisenthel shopper E1 Einkaufstasche',
         'marka' => 'reisenthel',
         'renk'  => 'blau',
         'fiyat' => 27.50,
@@ -53,8 +53,8 @@ return [
         'resim' => 'https://picsum.photos/seed/shopper/600/600',
         'kapasite' => '15 L',
         'malzeme'  => 'Polyester',
-        'aciklama' => 'Omuz askılı, geniş hacimli günlük alışveriş çantası.',
+        'aciklama' => 'Einkaufstasche mit Schultergurt und großem Fassungsvermögen für den täglichen Bedarf.',
         'stok'  => 15,
-        'kategori' => 'Çantalar',
+        'kategori' => 'Taschen',
     ],
 ];

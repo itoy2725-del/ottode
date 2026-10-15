@@ -29,7 +29,7 @@ function db(): PDO {
                 malzeme TEXT,
                 aciklama TEXT,
                 stok INTEGER DEFAULT 0,
-                kategori TEXT DEFAULT 'Genel'
+                kategori TEXT DEFAULT 'Allgemein'
             )
         ");
         db_seed($pdo);
@@ -59,7 +59,7 @@ function db_seed(PDO $pdo): void {
             ':malzeme'    => $u['malzeme'],
             ':aciklama'   => $u['aciklama'],
             ':stok'       => $u['stok'],
-            ':kategori'   => $u['kategori'] ?? 'Genel',
+            ':kategori'   => $u['kategori'] ?? 'Allgemein',
         ]);
     }
 }

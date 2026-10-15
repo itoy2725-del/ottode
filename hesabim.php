@@ -6,7 +6,7 @@ $siparisler = [];
 $aramaSonuc = null;
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['email'])) {
     if (!csrf_dogrula()) {
-        die('CSRF doğrulama hatası');
+        die('Sicherheitsprüfung fehlgeschlagen (CSRF).');
     }
     $email = trim($_POST['email']);
     $ordersDir = sys_get_temp_dir() . '/ottode_orders';
@@ -26,22 +26,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['email'])) {
     $aramaSonuc = true;
 }
 
-$sayfaBaslik = 'Hesabım';
+$sayfaBaslik = 'Mein Konto';
 require __DIR__ . '/includes/header.php';
 ?>
-<h1 class="baslik">Sipariş geçmişi</h1>
+<h1 class="baslik">Meine Bestellungen</h1>
 
 <div style="max-width:640px">
-    <p style="margin-bottom:16px;color:var(--gri)">Sipariş geçmişini görüntülemek için e-posta adresini gir.</p>
+    <p style="margin-bottom:16px;color:var(--gri)">Gib deine E-Mail-Adresse ein, um deine Bestellhistorie anzuzeigen.</p>
     
     <form method="post" class="form">
         <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
         <div class="alan">
-            <label>E-posta adresi</label>
+            <label>E-Mail-Adresse</label>
             <input type="email" name="email" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>" required>
         </div>
         <div class="alan" style="display:flex;align-items:end">
-            <button type="submit" class="btn">Siparişleri göster</button>
+            <button type="submit" class="btn">Bestellungen anzeigen</button>
         </div>
     </form>
 </div>
@@ -49,11 +49,11 @@ require __DIR__ . '/includes/header.php';
 <?php if ($aramaSonuc !== null): ?>
     <?php if (empty($siparisler)): ?>
         <div class="not" style="background:#fdecea;color:#c0392b;margin-top:20px">
-            Bu e-posta adresine kayıtlı sipariş bulunamadı.
+            Keine Bestellungen für diese E-Mail-Adresse gefunden.
         </div>
     <?php else: ?>
         <div style="margin-top:32px">
-            <h2 style="font-size:18px;margin-bottom:16px"><?= count($siparisler) ?> sipariş bulundu</h2>
+            <h2 style="font-size:18px;margin-bottom:16px"><?= count($siparisler) ?> Bestellung(en) gefunden</h2>
             <?php foreach ($siparisler as $s): ?>
                 <div class="ozet" style="margin-bottom:16px">
                     <div style="display:flex;justify-content:space-between;margin-bottom:8px">
@@ -71,9 +71,9 @@ require __DIR__ . '/includes/header.php';
                         </div>
                     <?php endforeach; ?>
                     <div style="border-top:1px solid var(--cizgi);margin-top:8px;padding-top:8px;font-weight:700">
-                        Toplam: <?= fiyat($s['toplam']) ?>
+                        Gesamt: <?= fiyat($s['toplam']) ?>
                         <span style="float:right;color:var(--gri);font-weight:400;font-size:14px">
-                            Ödeme: <?= htmlspecialchars($s['odeme']) ?>
+                            Zahlung: <?= htmlspecialchars($s['odeme']) ?>
                         </span>
                     </div>
                 </div>
