@@ -6,6 +6,7 @@ if (session_status() === PHP_SESSION_NONE) {
 define('SITE_ADI', 'ottode');
 define('PARA', '€');
 define('COOKIE_SECRET', 'gizli-anahtar-2024-ottode-' . ($_SERVER['HTTP_HOST'] ?? 'localhost'));
+define('ADMIN_SIFRE', 'admin123'); // Değiştir!
 
 // DB bağlantısı
 require_once __DIR__ . '/../data/db.php';
