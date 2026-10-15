@@ -7,15 +7,23 @@ define('SITE_ADI', 'ottode');
 define('PARA', '€');
 define('COOKIE_SECRET', 'gizli-anahtar-2024-ottode-' . ($_SERVER['HTTP_HOST'] ?? 'localhost'));
 
-// Ürünleri yükle
-$GLOBALS['URUNLER'] = require __DIR__ . '/../data/products.php';
+// DB bağlantısı
+require_once __DIR__ . '/../data/db.php';
 
 function urunleri_getir(): array {
-    return $GLOBALS['URUNLER'];
+    $stmt = db()->query("SELECT * FROM urunler ORDER BY id");
+    $sonuc = [];
+    while ($row = $stmt->fetch()) {
+        $sonuc[$row['id']] = $row;
+    }
+    return $sonuc;
 }
 
 function urun_getir(int $id): ?array {
-    return $GLOBALS['URUNLER'][$id] ?? null;
+    $stmt = db()->prepare("SELECT * FROM urunler WHERE id = ?");
+    $stmt->execute([$id]);
+    $row = $stmt->fetch();
+    return $row ?: null;
 }
 
 function fiyat(float $tutar): string {
