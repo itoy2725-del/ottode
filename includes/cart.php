@@ -1,9 +1,9 @@
 <?php
-// Sepet işlemleri (session tabanlı)
+// Sepet işlemleri (cookie tabanlı - serverless uyumlu)
 require_once __DIR__ . '/config.php';
 
 function sepet(): array {
-    return $_SESSION['sepet'] ?? [];
+    return cookie_oku('sepet') ?? [];
 }
 
 function sepete_ekle(int $id, int $adet = 1): void {
@@ -11,7 +11,7 @@ function sepete_ekle(int $id, int $adet = 1): void {
     $s = sepet();
     $s[$id] = ($s[$id] ?? 0) + $adet;
     if ($s[$id] < 1) unset($s[$id]);
-    $_SESSION['sepet'] = $s;
+    cookie_yaz('sepet', $s);
 }
 
 function sepet_guncelle(int $id, int $adet): void {
@@ -21,17 +21,17 @@ function sepet_guncelle(int $id, int $adet): void {
     } else {
         $s[$id] = $adet;
     }
-    $_SESSION['sepet'] = $s;
+    cookie_yaz('sepet', $s);
 }
 
 function sepetten_cikar(int $id): void {
     $s = sepet();
     unset($s[$id]);
-    $_SESSION['sepet'] = $s;
+    cookie_yaz('sepet', $s);
 }
 
 function sepet_bosalt(): void {
-    unset($_SESSION['sepet']);
+    cookie_sil('sepet');
 }
 
 function sepet_kalemleri(): array {

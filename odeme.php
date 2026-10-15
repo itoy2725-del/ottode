@@ -5,7 +5,8 @@ if (empty(sepet_kalemleri()) && !isset($_SESSION['son_siparis'])) {
     header('Location: sepet.php');
     exit;
 }
-if (empty($_SESSION['adres']) && !isset($_SESSION['son_siparis'])) {
+$adres = cookie_oku('adres');
+if (empty($adres) && !isset($_SESSION['son_siparis'])) {
     header('Location: adres.php');
     exit;
 }
@@ -18,11 +19,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['siparis_ver'])) {
         'tarih'    => date('d.m.Y H:i'),
         'toplam'   => sepet_toplam() + kargo_ucreti(sepet_toplam()),
         'odeme'    => $_POST['odeme'] ?? 'kredi',
-        'adres'    => $_SESSION['adres'],
+        'adres'    => $adres,
         'kalemler' => sepet_kalemleri(),
     ];
     sepet_bosalt();
-    unset($_SESSION['adres']);
+    cookie_sil('adres');
     header('Location: odeme.php?basarili=1');
     exit;
 }
@@ -48,7 +49,7 @@ if (isset($_GET['basarili']) && isset($_SESSION['son_siparis'])):
     exit;
 endif;
 
-$a = $_SESSION['adres'];
+$a = $adres;
 $araToplam = sepet_toplam();
 $kargo = kargo_ucreti($araToplam);
 $genelToplam = $araToplam + $kargo;

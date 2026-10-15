@@ -14,13 +14,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (empty(trim($_POST[$alan] ?? ''))) $hatalar[] = $alan;
     }
     if (empty($hatalar)) {
-        $_SESSION['adres'] = array_map('trim', $_POST);
+        cookie_yaz('adres', array_map('trim', $_POST));
         header('Location: odeme.php');
         exit;
     }
 }
 
-$a = $_SESSION['adres'] ?? [];
+$a = cookie_oku('adres') ?? [];
 $sayfaBaslik = 'Teslimat Adresi';
 require __DIR__ . '/includes/header.php';
 ?>
