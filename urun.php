@@ -75,10 +75,17 @@ if (!empty($u['kategori'])) {
             <span class="pdp-marka"><?= htmlspecialchars($u['marka']) ?></span>
             <h1 class="pdp-baslik"><?= htmlspecialchars($u['ad']) ?></h1>
             
-            <!-- Yıldız değerlendirme (demo) -->
+            <!-- 1) Malzeme satırı (h1 altında) -->
+            <?php if (!empty($u['malzeme'])): ?>
+            <div class="pdp-material"><?= htmlspecialchars($u['malzeme']) ?></div>
+            <?php endif; ?>
+            
+            <!-- 2) Yıldız değerlendirme + rozet (otto stili) -->
             <div class="pdp-bewertung">
-                <span class="pdp-sterne">★★★★☆</span>
-                <span class="pdp-bewertung-text">(12 Bewertungen)</span>
+                <span class="pdp-bewertung-zahl">4.9</span>
+                <span class="pdp-sterne">★★★★★</span>
+                <span class="pdp-bewertung-text">(833)</span>
+                <span class="pdp-beliebt">Sehr beliebt</span>
             </div>
 
             <!-- Fiyat bloğu -->
@@ -95,6 +102,15 @@ if (!empty($u['kategori'])) {
                     <div class="pdp-uvp">UVP <?= fiyat($u['eski_fiyat']) ?></div>
                 <?php endif; ?>
                 <div class="pdp-steuer">inkl. MwSt. zzgl. Versand</div>
+                
+                <!-- 3) Ratenzahlung + Zahlpause -->
+                <?php
+                $ratenpreis = round($u['fiyat'] / 12, 2);
+                ?>
+                <div class="pdp-finanzierung">
+                    <p>Oder ca. <?= fiyat($ratenpreis) ?> mtl. in 12 Raten</p>
+                    <p>100 Tage Zahlpause</p>
+                </div>
             </div>
 
             <!-- Renk/Variant -->
@@ -120,6 +136,13 @@ if (!empty($u['kategori'])) {
                     <?= $u['stok'] > 0 ? 'In den Warenkorb' : 'Ausverkauft' ?>
                 </button>
             </form>
+            
+            <!-- 4) İkincil linkler -->
+            <div class="pdp-secondary-links">
+                <a href="#">♡ Artikel merken</a>
+                <span>·</span>
+                <a href="#">↗ Teilen</a>
+            </div>
 
             <!-- USP/Teslimat bilgileri -->
             <div class="pdp-lieferung">
@@ -146,6 +169,11 @@ if (!empty($u['kategori'])) {
         <!-- Açıklama (Accordion mobilde) -->
         <details class="pdp-accordion" open>
             <summary class="pdp-accordion-baslik">Artikelbeschreibung</summary>
+            <!-- 5) Artikel-Nr. + Maße -->
+            <div class="pdp-artikel-meta">
+                <span>Artikel-Nr. ART-<?= $u['id'] ?></span>
+                <span>Maße: <?= htmlspecialchars($u['kapasite']) ?></span>
+            </div>
             <p class="pdp-aciklama"><?= htmlspecialchars($u['aciklama']) ?></p>
         </details>
 
@@ -156,6 +184,9 @@ if (!empty($u['kategori'])) {
                 <li><span>Farbe</span><span><?= htmlspecialchars($u['renk']) ?></span></li>
                 <li><span>Fassungsvermögen</span><span><?= htmlspecialchars($u['kapasite']) ?></span></li>
                 <li><span>Material</span><span><?= htmlspecialchars($u['malzeme']) ?></span></li>
+                <!-- 6) Ek satırlar -->
+                <li><span>Max. Belastbarkeit</span><span>ca. 20 kg</span></li>
+                <li><span>Artikelnummer</span><span>ART-<?= $u['id'] ?></span></li>
                 <li><span>Lagerbestand</span><span><?= $u['stok'] > 0 ? $u['stok'] . ' Stück' : 'Ausverkauft' ?></span></li>
                 <li><span>Marke</span><span><?= htmlspecialchars($u['marka']) ?></span></li>
                 <?php if (!empty($u['kategori'])): ?>
