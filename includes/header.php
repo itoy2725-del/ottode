@@ -16,7 +16,7 @@
             <button type="submit">Ara</button>
         </form>
         <nav class="nav">
-            <a href="adres.php">Hesabım</a>
+            <a href="hesabim.php">Hesabım</a>
             <a href="sepet.php" class="cart-link">
                 Sepet
                 <?php if (sepet_adet() > 0): ?><span class="badge"><?= sepet_adet() ?></span><?php endif; ?>

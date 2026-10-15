@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['siparis_ver'])) {
         die('CSRF doğrulama hatası');
     }
     $no = 'OT' . date('ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 6));
-    $_SESSION['son_siparis'] = [
+    $siparis = [
         'no'       => $no,
         'tarih'    => date('d.m.Y H:i'),
         'toplam'   => sepet_toplam() + kargo_ucreti(sepet_toplam()),
@@ -25,6 +25,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['siparis_ver'])) {
         'adres'    => $adres,
         'kalemler' => sepet_kalemleri(),
     ];
+    
+    // Siparişi dosyaya kaydet
+    $ordersDir = __DIR__ . '/data/orders';
+    if (!is_dir($ordersDir)) mkdir($ordersDir, 0755, true);
+    file_put_contents($ordersDir . '/' . $no . '.json', json_encode($siparis, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    
+    $_SESSION['son_siparis'] = $siparis;
     sepet_bosalt();
     cookie_sil('adres');
     header('Location: odeme.php?basarili=1');
