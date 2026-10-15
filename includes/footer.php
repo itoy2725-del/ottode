@@ -1,20 +1,45 @@
     </main>
     <footer class="footer">
         <div class="container footer-inner">
-            <div>
-                <strong><?= SITE_ADI ?></strong>
-                <p>Demo-Onlineshop. Kein echter Shop.</p>
+            <div class="footer-section">
+                <h4>Service</h4>
+                <div class="footer-links">
+                    <a href="#">Kundenservice</a>
+                    <a href="#">Versand & Lieferung</a>
+                    <a href="#">Rückgabe & Retoure</a>
+                    <a href="#">Zahlungsarten</a>
+                </div>
             </div>
-            <div class="footer-links">
-                <a href="index.php">Startseite</a>
-                <a href="sepet.php">Warenkorb</a>
-                <a href="hesabim.php">Mein Konto</a>
+            <div class="footer-section">
+                <h4>Über uns</h4>
+                <div class="footer-links">
+                    <a href="#">Über ottode</a>
+                    <a href="#">Karriere</a>
+                    <a href="#">Presse</a>
+                </div>
             </div>
-            <div class="footer-pay">
-                <span>Zahlung:</span> Visa · Mastercard · PayPal · Überweisung
+            <div class="footer-section">
+                <h4>Rechtliches</h4>
+                <div class="footer-links">
+                    <a href="#">Impressum</a>
+                    <a href="#">AGB</a>
+                    <a href="#">Datenschutz</a>
+                </div>
+            </div>
+            
+            <div class="footer-usp">
+                <strong>Zahlungsarten:</strong> Visa · Mastercard · PayPal · Rechnung · Lastschrift
+            </div>
+            
+            <div class="footer-bottom">
+                <span>© <?= date('Y') ?> <?= SITE_ADI ?> — Demo-Projekt</span>
+                <div class="footer-legal">
+                    <a href="#">Impressum</a>
+                    <a href="#">Datenschutz</a>
+                    <a href="#">AGB</a>
+                </div>
             </div>
         </div>
-        <div class="footer-bottom">© <?= date('Y') ?> <?= SITE_ADI ?> — Alle Rechte vorbehalten.</div>
     </footer>
 </body>
 </html>

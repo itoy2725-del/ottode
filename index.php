@@ -55,14 +55,18 @@ require __DIR__ . '/includes/header.php';
             <span class="kart-marka"><?= htmlspecialchars($u['marka']) ?></span>
             <span class="kart-ad"><?= htmlspecialchars($u['ad']) ?></span>
             <div class="fiyat-satir">
-                <span class="fiyat"><?= fiyat($u['fiyat']) ?></span>
-                <?php if (!empty($u['eski_fiyat'])): ?>
-                    <span class="eski"><?= fiyat($u['eski_fiyat']) ?></span>
-                <?php endif; ?>
                 <?php if ($indirimYuzde): ?>
+                    <span class="fiyat sale"><?= fiyat($u['fiyat']) ?></span>
                     <span class="indirim-rozet">-<?= $indirimYuzde ?>%</span>
+                <?php else: ?>
+                    <span class="fiyat"><?= fiyat($u['fiyat']) ?></span>
                 <?php endif; ?>
             </div>
+            <?php if (!empty($u['eski_fiyat']) && $u['eski_fiyat'] > $u['fiyat']): ?>
+                <div style="font-size:12px;line-height:16px;color:var(--oc-text-secondary)">
+                    UVP <?= fiyat($u['eski_fiyat']) ?>
+                </div>
+            <?php endif; ?>
         </div>
     </a>
     <?php endforeach; ?>

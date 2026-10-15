@@ -40,15 +40,19 @@ if (!empty($u['eski_fiyat']) && $u['eski_fiyat'] > $u['fiyat']) {
         <span class="kart-marka"><?= htmlspecialchars($u['marka']) ?></span>
         <h1><?= htmlspecialchars($u['ad']) ?></h1>
         <div class="fiyat-satir" style="margin:12px 0">
-            <span class="fiyat" style="font-size:28px"><?= fiyat($u['fiyat']) ?></span>
-            <?php if (!empty($u['eski_fiyat'])): ?>
-                <span class="eski" style="font-size:18px"><?= fiyat($u['eski_fiyat']) ?></span>
-            <?php endif; ?>
             <?php if ($indirimYuzde): ?>
+                <span class="fiyat sale" style="font-size:24px;line-height:32px"><?= fiyat($u['fiyat']) ?></span>
                 <span class="indirim-rozet" style="font-size:14px;padding:4px 8px">-<?= $indirimYuzde ?>%</span>
+            <?php else: ?>
+                <span class="fiyat" style="font-size:24px;line-height:32px"><?= fiyat($u['fiyat']) ?></span>
             <?php endif; ?>
         </div>
-        <p style="margin:14px 0;color:var(--gri-metin)"><?= htmlspecialchars($u['aciklama']) ?></p>
+        <?php if (!empty($u['eski_fiyat']) && $u['eski_fiyat'] > $u['fiyat']): ?>
+            <div style="font-size:14px;line-height:20px;color:var(--oc-text-secondary);margin-bottom:12px">
+                UVP <?= fiyat($u['eski_fiyat']) ?>
+            </div>
+        <?php endif; ?>
+        <p style="margin:14px 0;color:var(--oc-text-secondary)"><?= htmlspecialchars($u['aciklama']) ?></p>
 
         <ul class="urun-ozellik">
             <li><span>Farbe</span><span><?= htmlspecialchars($u['renk']) ?></span></li>
