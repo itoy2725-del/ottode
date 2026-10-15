@@ -54,21 +54,4 @@
     </div>
 </header>
 
-<!-- Kategori nav bar -->
-<div class="kategori-bar">
-    <div class="container">
-        <a href="index.php" class="<?= empty($_GET['kategori']) ? 'kategori-aktif' : 'kategori-link' ?>">Alle</a>
-        <?php 
-        $kategoriler = kategorileri_getir();
-        $aktifKategori = $_GET['kategori'] ?? '';
-        foreach ($kategoriler as $k): 
-        ?>
-            <a href="index.php?kategori=<?= urlencode($k) ?>" class="<?= $aktifKategori === $k ? 'kategori-aktif' : 'kategori-link' ?>">
-                <?= htmlspecialchars($k) ?>
-            </a>
-        <?php endforeach; ?>
-        <a href="index.php" class="kategori-link kategori-sale">Sale</a>
-    </div>
-</div>
-
 <main class="container">

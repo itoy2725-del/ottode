@@ -174,38 +174,6 @@ h3 { font-size: 16px; line-height: 24px; font-weight: 700; }
 }
 .search-icon { width: 20px; height: 20px; stroke: currentColor; }
 
-/* C: Kategori nav bar - akışkan kaydırma */
-.kategori-bar { 
-  background: var(--oc-canvas-bg); 
-  border-bottom: 1px solid var(--oc-divider); 
-  overflow-x: auto; 
-  overflow-y: hidden; 
-  -webkit-overflow-scrolling: touch; 
-  width: 100%;
-}
-.kategori-bar::-webkit-scrollbar { display: none; }
-.kategori-bar .container { 
-  display: flex; 
-  gap: var(--oc-sp-150); 
-  padding: var(--oc-sp-75); 
-  white-space: nowrap; 
-  max-width: none; 
-  width: auto;
-}
-.kategori-link, .kategori-aktif { 
-  padding: var(--oc-sp-50) 0; 
-  font-size: 14px; 
-  line-height: 20px; 
-  font-weight: 600; 
-  color: var(--oc-text); 
-  transition: .2s; 
-  border-bottom: 2px solid transparent; 
-  flex-shrink: 0; 
-}
-.kategori-link:hover { color: var(--oc-red); border-bottom-color: var(--oc-red); }
-.kategori-aktif { color: var(--oc-red); border-bottom-color: var(--oc-red); }
-.kategori-sale { color: var(--oc-red) !important; font-weight: 700; }
-
 /* C: Main - akışkan, overflow korumalı */
 main { padding: var(--oc-sp-100) 0 var(--oc-sp-200); min-height: 60vh; overflow-x: hidden; width: 100%; }
 .baslik { font-size: 24px; line-height: 32px; font-weight: 700; margin: var(--oc-sp-50) 0 var(--oc-sp-100); }
