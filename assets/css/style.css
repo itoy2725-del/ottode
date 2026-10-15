@@ -1,0 +1,91 @@
+:root{
+  --kirmizi:#e2001a; --kirmizi-koyu:#b30015;
+  --metin:#1a1a1a; --gri:#666; --acik:#f4f4f4; --cizgi:#e0e0e0;
+  --yesil:#2e7d32; --radius:8px; --kargo-bedava:#2e7d32;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI",Arial,sans-serif;color:var(--metin);background:#fff;line-height:1.5}
+a{color:inherit;text-decoration:none}
+.container{max-width:1100px;margin:0 auto;padding:0 16px}
+img{max-width:100%;display:block}
+
+/* Üst bar */
+.topbar{background:var(--kirmizi);color:#fff;position:sticky;top:0;z-index:50}
+.topbar-inner{display:flex;align-items:center;gap:16px;height:64px}
+.logo{font-size:26px;font-weight:800;letter-spacing:-1px}
+.search{flex:1;display:flex;max-width:520px}
+.search input{flex:1;border:none;border-radius:var(--radius) 0 0 var(--radius);padding:10px 14px;font-size:14px}
+.search button{border:none;background:var(--kirmizi-koyu);color:#fff;padding:0 18px;border-radius:0 var(--radius) var(--radius) 0;cursor:pointer;font-weight:600}
+.nav{display:flex;gap:18px;align-items:center;font-weight:600}
+.cart-link{position:relative}
+.badge{position:absolute;top:-10px;right:-14px;background:#fff;color:var(--kirmizi);border-radius:999px;font-size:12px;padding:1px 7px;font-weight:800}
+
+/* Genel */
+main{padding:24px 0 48px;min-height:60vh}
+.baslik{font-size:22px;margin:8px 0 18px}
+.btn{display:inline-block;background:var(--kirmizi);color:#fff;border:none;padding:12px 22px;border-radius:var(--radius);font-size:15px;font-weight:700;cursor:pointer;transition:.15s}
+.btn:hover{background:var(--kirmizi-koyu)}
+.btn-ghost{background:#fff;color:var(--kirmizi);border:2px solid var(--kirmizi)}
+.btn-blok{width:100%;text-align:center}
+.not{background:#e8f5e9;color:var(--yesil);padding:10px 14px;border-radius:var(--radius);margin-bottom:16px;font-weight:600}
+
+/* Ürün grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+.kart{border:1px solid var(--cizgi);border-radius:var(--radius);overflow:hidden;background:#fff;transition:.15s;display:flex;flex-direction:column}
+.kart:hover{box-shadow:0 6px 20px rgba(0,0,0,.08);transform:translateY(-2px)}
+.kart img{aspect-ratio:1;object-fit:cover}
+.kart-govde{padding:12px;display:flex;flex-direction:column;gap:6px;flex:1}
+.kart-marka{font-size:12px;color:var(--gri);text-transform:uppercase;letter-spacing:.5px}
+.kart-ad{font-size:14px;font-weight:600;flex:1}
+.fiyat-satir{display:flex;align-items:baseline;gap:8px}
+.fiyat{font-size:19px;font-weight:800;color:var(--kirmizi)}
+.eski{font-size:13px;color:var(--gri);text-decoration:line-through}
+
+/* Ürün detay */
+.urun{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.urun-bilgi h1{font-size:24px;margin-bottom:6px}
+.urun-ozellik{list-style:none;margin:16px 0;border-top:1px solid var(--cizgi)}
+.urun-ozellik li{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--cizgi);font-size:14px}
+.urun-ozellik span:first-child{color:var(--gri)}
+.adet-sec{display:flex;align-items:center;gap:10px;margin:18px 0}
+.adet-sec select{padding:8px;border:1px solid var(--cizgi);border-radius:var(--radius)}
+
+/* Sepet & tablo */
+.sepet-tablo{width:100%;border-collapse:collapse}
+.sepet-tablo th,.sepet-tablo td{padding:12px;border-bottom:1px solid var(--cizgi);text-align:left;vertical-align:middle}
+.sepet-urun{display:flex;align-items:center;gap:12px}
+.sepet-urun img{width:64px;height:64px;object-fit:cover;border-radius:6px}
+.adet-form{display:flex;gap:6px;align-items:center}
+.adet-form input{width:56px;padding:6px;border:1px solid var(--cizgi);border-radius:6px}
+.kaldir{color:var(--gri);font-size:13px}
+.kaldir:hover{color:var(--kirmizi)}
+
+/* Özet kutu */
+.duzen{display:grid;grid-template-columns:1fr 320px;gap:28px;align-items:start}
+.ozet{border:1px solid var(--cizgi);border-radius:var(--radius);padding:18px;background:var(--acik)}
+.ozet h3{margin-bottom:12px}
+.ozet-satir{display:flex;justify-content:space-between;padding:6px 0;font-size:14px}
+.ozet-toplam{display:flex;justify-content:space-between;padding:12px 0 0;margin-top:8px;border-top:1px solid var(--cizgi);font-size:18px;font-weight:800}
+.bedava{color:var(--kargo-bedava);font-weight:700}
+
+/* Form */
+.form{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:640px}
+.form .tam{grid-column:1/-1}
+.alan{display:flex;flex-direction:column;gap:4px}
+.alan label{font-size:13px;font-weight:600;color:var(--gri)}
+.alan input,.alan select{padding:10px;border:1px solid var(--cizgi);border-radius:var(--radius);font-size:14px}
+
+.bos{text-align:center;padding:60px 0;color:var(--gri)}
+
+/* Footer */
+.footer{background:var(--acik);border-top:1px solid var(--cizgi);margin-top:40px}
+.footer-inner{display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;padding:28px 16px}
+.footer-links{display:flex;flex-direction:column;gap:6px}
+.footer-bottom{text-align:center;padding:14px;font-size:13px;color:var(--gri);border-top:1px solid var(--cizgi)}
+
+@media(max-width:760px){
+  .urun{grid-template-columns:1fr}
+  .duzen{grid-template-columns:1fr}
+  .form{grid-template-columns:1fr}
+  .search{display:none}
+}

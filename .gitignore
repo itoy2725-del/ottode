@@ -1,0 +1,7 @@
+/vendor/
+/.vercel
+/node_modules
+*.log
+.DS_Store
+.env
+.env.*
