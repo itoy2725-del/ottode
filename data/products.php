@@ -13,6 +13,7 @@ return [
         'malzeme'  => 'Polyester / Alüminyum',
         'aciklama' => 'Katlanabilir, su itici, taşıma saplı alışveriş sepeti. Hafif alüminyum çerçeveli.',
         'stok'  => 12,
+        'kategori' => 'Sepetler',
     ],
     2 => [
         'id'    => 2,
@@ -26,6 +27,7 @@ return [
         'malzeme'  => 'Polyester',
         'aciklama' => 'Büyük boy katlanabilir alışveriş sepeti, dayanıklı kumaş.',
         'stok'  => 7,
+        'kategori' => 'Sepetler',
     ],
     3 => [
         'id'    => 3,
@@ -39,6 +41,7 @@ return [
         'malzeme'  => 'Polyester / İzolasyon',
         'aciklama' => 'İzolasyonlu soğutucu çanta, piknik ve market için ideal.',
         'stok'  => 20,
+        'kategori' => 'Soğutucu Çantalar',
     ],
     4 => [
         'id'    => 4,
@@ -52,5 +55,6 @@ return [
         'malzeme'  => 'Polyester',
         'aciklama' => 'Omuz askılı, geniş hacimli günlük alışveriş çantası.',
         'stok'  => 15,
+        'kategori' => 'Çantalar',
     ],
 ];

@@ -26,9 +26,17 @@ function db(): PDO {
                 kapasite TEXT,
                 malzeme TEXT,
                 aciklama TEXT,
-                stok INTEGER DEFAULT 0
+                stok INTEGER DEFAULT 0,
+                kategori TEXT DEFAULT 'Genel'
             )
         ");
+    } else {
+        // Mevcut DB'ye kategori sütunu ekle (eğer yoksa)
+        try {
+            $pdo->exec("ALTER TABLE urunler ADD COLUMN kategori TEXT DEFAULT 'Genel'");
+        } catch (Exception $e) {
+            // Sütun zaten varsa hata ver, görmezden gel
+        }
     }
     
     return $pdo;

@@ -83,6 +83,11 @@ main{padding:24px 0 48px;min-height:60vh}
 .footer-links{display:flex;flex-direction:column;gap:6px}
 .footer-bottom{text-align:center;padding:14px;font-size:13px;color:var(--gri);border-top:1px solid var(--cizgi)}
 
+/* Kategori menüsü */
+.kategori-link{display:inline-block;padding:8px 16px;margin-right:8px;font-size:14px;font-weight:600;color:var(--gri);border-radius:var(--radius);transition:.15s}
+.kategori-link:hover{background:var(--acik);color:var(--metin)}
+.kategori-aktif{display:inline-block;padding:8px 16px;margin-right:8px;font-size:14px;font-weight:700;color:#fff;background:var(--kirmizi);border-radius:var(--radius)}
+
 @media(max-width:760px){
   .urun{grid-template-columns:1fr}
   .duzen{grid-template-columns:1fr}

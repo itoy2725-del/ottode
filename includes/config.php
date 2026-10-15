@@ -26,6 +26,15 @@ function urun_getir(int $id): ?array {
     return $row ?: null;
 }
 
+function kategorileri_getir(): array {
+    $stmt = db()->query("SELECT DISTINCT kategori FROM urunler ORDER BY kategori");
+    $kategoriler = [];
+    while ($row = $stmt->fetch()) {
+        $kategoriler[] = $row['kategori'];
+    }
+    return $kategoriler;
+}
+
 function fiyat(float $tutar): string {
     return number_format($tutar, 2, ',', '.') . ' ' . PARA;
 }

@@ -7,8 +7,8 @@ $urunler = require __DIR__ . '/products.php';
 $db = db();
 $stmt = $db->prepare("
     INSERT OR REPLACE INTO urunler 
-    (id, ad, marka, renk, fiyat, eski_fiyat, resim, kapasite, malzeme, aciklama, stok)
-    VALUES (:id, :ad, :marka, :renk, :fiyat, :eski_fiyat, :resim, :kapasite, :malzeme, :aciklama, :stok)
+    (id, ad, marka, renk, fiyat, eski_fiyat, resim, kapasite, malzeme, aciklama, stok, kategori)
+    VALUES (:id, :ad, :marka, :renk, :fiyat, :eski_fiyat, :resim, :kapasite, :malzeme, :aciklama, :stok, :kategori)
 ");
 
 foreach ($urunler as $u) {
@@ -24,6 +24,7 @@ foreach ($urunler as $u) {
         ':malzeme'    => $u['malzeme'],
         ':aciklama'   => $u['aciklama'],
         ':stok'       => $u['stok'],
+        ':kategori'   => $u['kategori'] ?? 'Genel',
     ]);
 }
 
