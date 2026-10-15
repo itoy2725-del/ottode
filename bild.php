@@ -33,8 +33,7 @@ header('Cache-Control: public, max-age=86400');
 
 echo <<<SVG
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800" role="img">
-  <rect width="600" height="800" fill="#f4f4f4"/>
-  <circle cx="300" cy="360" r="190" fill="#ffffff"/>
+  <rect width="600" height="800" fill="#ffffff"/>
   <g transform="translate(0,20)">$icon</g>
   <text x="300" y="640" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#212121">$marke</text>
   <text x="300" y="678" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#6d6d6d">$renk</text>

@@ -43,6 +43,17 @@ if (!empty($u['kategori'])) {
 }
 ?>
 
+<!-- Breadcrumb -->
+<div class="pdp-breadcrumb">
+    <a href="index.php">Startseite</a>
+    <?php if (!empty($u['kategori'])): ?>
+        <span>›</span>
+        <a href="index.php?kategori=<?= urlencode($u['kategori']) ?>"><?= htmlspecialchars($u['kategori']) ?></a>
+    <?php endif; ?>
+    <span>›</span>
+    <span><?= htmlspecialchars($u['ad']) ?></span>
+</div>
+
 <!-- PDP: İki sütun düzen -->
 <div class="pdp-container">
     <div class="pdp-grid">
@@ -111,18 +122,20 @@ if (!empty($u['kategori'])) {
             </form>
 
             <!-- USP/Teslimat bilgileri -->
+            <div class="pdp-lieferung">
+                <div class="pdp-lieferung-haupt">
+                    <svg class="pdp-lieferung-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    <span>lieferbar – in 2–3 Werktagen bei dir</span>
+                </div>
+            </div>
             <div class="pdp-usp">
-                <div class="pdp-usp-item">
-                    <svg class="pdp-usp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                    <span>Kostenlose Rücksendung</span>
-                </div>
-                <div class="pdp-usp-item">
-                    <svg class="pdp-usp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-                    <span>Lieferung in 2–4 Werktagen</span>
-                </div>
                 <div class="pdp-usp-item">
                     <svg class="pdp-usp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
                     <span>Kauf auf Rechnung</span>
+                </div>
+                <div class="pdp-usp-item">
+                    <svg class="pdp-usp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    <span>30 Tage kostenlose Rücksendung</span>
                 </div>
             </div>
         </div>
@@ -130,15 +143,15 @@ if (!empty($u['kategori'])) {
 
     <!-- ALT BÖLÜM: Açıklama + Özellikler + İlgili ürünler -->
     <div class="pdp-details">
-        <!-- Açıklama -->
-        <div class="pdp-section">
-            <h2 class="pdp-section-baslik">Produktbeschreibung</h2>
+        <!-- Açıklama (Accordion mobilde) -->
+        <details class="pdp-accordion" open>
+            <summary class="pdp-accordion-baslik">Artikelbeschreibung</summary>
             <p class="pdp-aciklama"><?= htmlspecialchars($u['aciklama']) ?></p>
-        </div>
+        </details>
 
-        <!-- Özellik tablosu -->
-        <div class="pdp-section">
-            <h2 class="pdp-section-baslik">Produktdetails</h2>
+        <!-- Özellik tablosu (Accordion mobilde) -->
+        <details class="pdp-accordion" open>
+            <summary class="pdp-accordion-baslik">Produktdetails</summary>
             <ul class="pdp-ozellik">
                 <li><span>Farbe</span><span><?= htmlspecialchars($u['renk']) ?></span></li>
                 <li><span>Fassungsvermögen</span><span><?= htmlspecialchars($u['kapasite']) ?></span></li>
@@ -149,7 +162,7 @@ if (!empty($u['kategori'])) {
                 <li><span>Kategorie</span><span><?= htmlspecialchars($u['kategori']) ?></span></li>
                 <?php endif; ?>
             </ul>
-        </div>
+        </details>
 
         <!-- İlgili ürünler -->
         <?php if (!empty($ilgiliUrunler)): ?>
@@ -182,6 +195,20 @@ if (!empty($u['kategori'])) {
         </div>
         <?php endif; ?>
     </div>
+</div>
+
+<!-- Sticky alt satın-alma çubuğu (sadece mobil) -->
+<div class="pdp-sticky-bar">
+    <div class="pdp-sticky-fiyat">
+        <?php if ($indirimYuzde): ?>
+            <span class="pdp-fiyat sale"><?= fiyat($u['fiyat']) ?></span>
+        <?php else: ?>
+            <span class="pdp-fiyat"><?= fiyat($u['fiyat']) ?></span>
+        <?php endif; ?>
+    </div>
+    <button type="button" class="pdp-sticky-cta" <?= $u['stok'] < 1 ? 'disabled' : '' ?> onclick="document.querySelector('.pdp-form').submit()">
+        <?= $u['stok'] > 0 ? 'In den Warenkorb' : 'Ausverkauft' ?>
+    </button>
 </div>
 
 <?php require __DIR__ . '/includes/footer.php'; ?>

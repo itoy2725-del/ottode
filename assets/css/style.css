@@ -274,6 +274,40 @@ main { padding: var(--oc-sp-100) 0 var(--oc-sp-200); min-height: 60vh; overflow-
 .pdp-ozellik span:last-child { color: var(--oc-text); font-weight: 600; }
 .pdp-ilgili-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--oc-sp-75); margin-top: var(--oc-sp-100); }
 
+/* Breadcrumb */
+.pdp-breadcrumb { display: flex; align-items: center; gap: var(--oc-sp-50); font-size: 12px; line-height: 16px; color: var(--oc-text-secondary); padding: var(--oc-sp-75) var(--oc-sp-100); overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
+.pdp-breadcrumb::-webkit-scrollbar { display: none; }
+.pdp-breadcrumb a { color: var(--oc-text-secondary); text-decoration: none; transition: .2s; }
+.pdp-breadcrumb a:hover { color: var(--oc-red); }
+.pdp-breadcrumb span { flex-shrink: 0; }
+
+/* Lieferung (teslimat ana satır) */
+.pdp-lieferung { background: var(--oc-frame-bg); padding: var(--oc-sp-100); border-radius: var(--oc-radius-100); margin-bottom: var(--oc-sp-100); }
+.pdp-lieferung-haupt { display: flex; align-items: center; gap: var(--oc-sp-75); font-size: 14px; line-height: 20px; color: var(--oc-text); font-weight: 600; }
+.pdp-lieferung-icon { width: 20px; height: 20px; stroke: var(--oc-success); flex-shrink: 0; stroke-width: 2; }
+
+/* Accordion (mobil <details>) */
+.pdp-accordion { background: var(--oc-canvas-bg); padding: var(--oc-sp-100); border-radius: var(--oc-radius-100); box-shadow: 0 1px 3px rgba(0,0,0,.08); margin-bottom: var(--oc-sp-100); }
+.pdp-accordion-baslik { font-size: 16px; line-height: 24px; font-weight: 700; color: var(--oc-text); cursor: pointer; list-style: none; padding: var(--oc-sp-75) 0; display: flex; justify-content: space-between; align-items: center; }
+.pdp-accordion-baslik::-webkit-details-marker { display: none; }
+.pdp-accordion-baslik::after { content: '+'; font-size: 24px; font-weight: 400; color: var(--oc-text-secondary); transition: .2s; }
+.pdp-accordion[open] .pdp-accordion-baslik::after { content: '−'; }
+.pdp-accordion .pdp-aciklama, .pdp-accordion .pdp-ozellik { margin-top: var(--oc-sp-75); }
+
+/* Sticky alt satın-alma çubuğu (mobil) */
+.pdp-sticky-bar { display: flex; align-items: center; gap: var(--oc-sp-100); position: fixed; bottom: 0; left: 0; right: 0; background: var(--oc-canvas-bg); padding: var(--oc-sp-100) var(--oc-sp-100); box-shadow: 0 -2px 8px rgba(0,0,0,.12); z-index: 100; }
+.pdp-sticky-fiyat { display: flex; align-items: center; flex-shrink: 0; }
+.pdp-sticky-cta { flex: 1; background: var(--oc-red); color: var(--oc-inverted); border: none; padding: var(--oc-sp-100); border-radius: var(--oc-radius-100); font-size: 16px; line-height: 24px; font-weight: 700; cursor: pointer; transition: .2s; text-align: center; min-height: 48px; font-family: var(--oc-font); }
+.pdp-sticky-cta:hover:not(:disabled) { background: var(--oc-red-hover); }
+.pdp-sticky-cta:active:not(:disabled) { transform: scale(0.98); }
+.pdp-sticky-cta:disabled { background: var(--oc-text-secondary); cursor: not-allowed; }
+
+/* Mobil: body padding-bottom için sticky bar'a yer aç */
+body { padding-bottom: 0; }
+@media(max-width: 47.99em) {
+  body { padding-bottom: 80px; }
+}
+
 
 /* Sepet tablo */
 .sepet-tablo { width: 100%; border-collapse: collapse; background: var(--oc-canvas-bg); border-radius: var(--oc-radius-100); overflow: hidden; table-layout: auto; }
@@ -347,6 +381,13 @@ main { padding: var(--oc-sp-100) 0 var(--oc-sp-200); min-height: 60vh; overflow-
   .pdp-kaufbox { flex: 1; }
   .pdp-baslik { font-size: 24px; line-height: 32px; }
   .pdp-ilgili-grid { grid-template-columns: repeat(4, 1fr); gap: var(--oc-sp-100); }
+  
+  /* Masaüstünde sticky bar gizli */
+  .pdp-sticky-bar { display: none; }
+  
+  /* Masaüstünde accordion her zaman açık */
+  .pdp-accordion-baslik { cursor: default; }
+  .pdp-accordion-baslik::after { display: none; }
   
   /* Form: 2 sütun */
   .form { display: grid; grid-template-columns: 1fr 1fr; gap: var(--oc-sp-100); max-width: 720px; }
