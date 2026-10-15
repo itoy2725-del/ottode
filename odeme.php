@@ -13,6 +13,9 @@ if (empty($adres) && !isset($_SESSION['son_siparis'])) {
 
 // Siparişi tamamla
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['siparis_ver'])) {
+    if (!csrf_dogrula()) {
+        die('CSRF doğrulama hatası');
+    }
     $no = 'OT' . date('ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 6));
     $_SESSION['son_siparis'] = [
         'no'       => $no,
@@ -58,6 +61,7 @@ $genelToplam = $araToplam + $kargo;
 <div class="duzen">
     <div>
         <form method="post">
+            <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
             <h3 style="margin-bottom:10px">Teslimat adresi</h3>
             <div class="ozet" style="background:#fff;margin-bottom:20px">
                 <?= htmlspecialchars($a['ad'] . ' ' . $a['soyad']) ?><br>

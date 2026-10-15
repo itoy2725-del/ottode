@@ -3,6 +3,9 @@ require_once __DIR__ . '/includes/cart.php';
 
 // Sepet işlemleri
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!csrf_dogrula()) {
+        die('CSRF doğrulama hatası');
+    }
     if (isset($_POST['guncelle'])) {
         foreach ($_POST['adet'] ?? [] as $id => $adet) {
             sepet_guncelle((int)$id, (int)$adet);
@@ -39,6 +42,7 @@ require __DIR__ . '/includes/header.php';
 <div class="duzen">
     <div>
         <form method="post">
+            <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
             <table class="sepet-tablo">
                 <thead><tr><th>Ürün</th><th>Fiyat</th><th>Adet</th><th>Ara toplam</th><th></th></tr></thead>
                 <tbody>

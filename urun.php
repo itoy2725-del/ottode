@@ -5,6 +5,9 @@ $id = (int)($_GET['id'] ?? 0);
 
 // Sepete ekleme
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ekle'])) {
+    if (!csrf_dogrula()) {
+        die('CSRF doğrulama hatası');
+    }
     $adet = max(1, (int)($_POST['adet'] ?? 1));
     sepete_ekle($id, $adet);
     header('Location: sepet.php?eklendi=1');
@@ -45,6 +48,7 @@ require __DIR__ . '/includes/header.php';
         </ul>
 
         <form method="post" class="adet-sec">
+            <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
             <label for="adet">Adet:</label>
             <select name="adet" id="adet">
                 <?php for ($i = 1; $i <= min(10, $u['stok']); $i++): ?>
