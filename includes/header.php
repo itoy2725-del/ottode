@@ -18,7 +18,9 @@
                 </svg>
                 <span class="hamburger-text">Sortiment</span>
             </div>
-            <a href="index.php" class="logo">ottode</a>
+            <a href="index.php" class="logo">
+                <img src="assets/images/logo.svg" alt="ottode">
+            </a>
             <nav class="nav">
                 <a href="index.php?q=" class="nav-item">
                     <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>

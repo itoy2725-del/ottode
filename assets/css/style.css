@@ -75,23 +75,22 @@ h3 { font-size: 16px; line-height: 24px; font-weight: 700; }
   max-width: 100%;
 }
 
-/* B: LOGO - otto wordmark stiline yakın (yassı dikdörtgen, padding-x > padding-y) */
+/* B: LOGO - SVG resim */
 .logo { 
   background: var(--oc-red); 
-  color: var(--oc-inverted); 
-  padding: 4px 12px; 
-  font-size: 18px; 
-  font-weight: 900; 
-  letter-spacing: -.8px; 
+  padding: 6px 12px; 
   border-radius: 2px;
-  text-transform: lowercase; 
   height: 32px; 
   display: flex; 
   align-items: center; 
   justify-content: center;
   flex-shrink: 1;
   min-width: 0;
-  white-space: nowrap;
+}
+.logo img {
+  height: 20px;
+  width: auto;
+  display: block;
 }
 
 /* A: NAV - akışkan flex, min-width:0, flex-shrink aktif */
