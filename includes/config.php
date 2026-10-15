@@ -71,15 +71,22 @@ function cookie_sil(string $isim): void {
     unset($_COOKIE[$isim]);
 }
 
-// --- CSRF koruması ---
+// --- CSRF koruması (imzalı cookie / double-submit — serverless uyumlu) ---
 function csrf_token(): string {
-    if (empty($_SESSION['csrf_token'])) {
-        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-    }
-    return $_SESSION['csrf_token'];
+    $c = cookie_oku('csrf');
+    if (!empty($c['t'])) return $c['t'];
+    $t = bin2hex(random_bytes(32));
+    cookie_yaz('csrf', ['t' => $t]);
+    return $t;
 }
 
 function csrf_dogrula(): bool {
+    $c = cookie_oku('csrf');
     $token = $_POST['csrf_token'] ?? '';
-    return !empty($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
+    return !empty($c['t']) && hash_equals($c['t'], $token);
+}
+
+// CSRF cookie'sini sayfa çıktısı başlamadan (header gönderilmeden) hazırla.
+if (PHP_SAPI !== 'cli' && !headers_sent()) {
+    csrf_token();
 }

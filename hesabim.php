@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['email'])) {
         die('CSRF doğrulama hatası');
     }
     $email = trim($_POST['email']);
-    $ordersDir = __DIR__ . '/data/orders';
+    $ordersDir = sys_get_temp_dir() . '/ottode_orders';
     
     if (is_dir($ordersDir)) {
         $dosyalar = glob($ordersDir . '/*.json');

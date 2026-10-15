@@ -1,12 +1,13 @@
 <?php
 require_once __DIR__ . '/includes/cart.php';
 
-if (empty(sepet_kalemleri()) && !isset($_SESSION['son_siparis'])) {
+$basarili = isset($_GET['basarili']);
+if (!$basarili && empty(sepet_kalemleri())) {
     header('Location: sepet.php');
     exit;
 }
 $adres = cookie_oku('adres');
-if (empty($adres) && !isset($_SESSION['son_siparis'])) {
+if (!$basarili && empty($adres)) {
     header('Location: adres.php');
     exit;
 }
@@ -26,12 +27,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['siparis_ver'])) {
         'kalemler' => sepet_kalemleri(),
     ];
     
-    // Siparişi dosyaya kaydet
-    $ordersDir = __DIR__ . '/data/orders';
-    if (!is_dir($ordersDir)) mkdir($ordersDir, 0755, true);
-    file_put_contents($ordersDir . '/' . $no . '.json', json_encode($siparis, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-    
-    $_SESSION['son_siparis'] = $siparis;
+    // Siparişi dosyaya kaydet (serverless: yalnızca /tmp yazılabilir)
+    $ordersDir = sys_get_temp_dir() . '/ottode_orders';
+    if (!is_dir($ordersDir)) @mkdir($ordersDir, 0755, true);
+    @file_put_contents($ordersDir . '/' . $no . '.json', json_encode($siparis, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+
+    cookie_yaz('son_siparis', $siparis);
     sepet_bosalt();
     cookie_sil('adres');
     header('Location: odeme.php?basarili=1');
@@ -42,8 +43,8 @@ $sayfaBaslik = 'Ödeme';
 require __DIR__ . '/includes/header.php';
 
 // Başarılı sipariş ekranı
-if (isset($_GET['basarili']) && isset($_SESSION['son_siparis'])):
-    $s = $_SESSION['son_siparis'];
+$s = cookie_oku('son_siparis');
+if ($basarili && $s):
 ?>
     <div class="bos" style="padding:40px 0">
         <div style="font-size:48px">✓</div>
@@ -54,7 +55,6 @@ if (isset($_GET['basarili']) && isset($_SESSION['son_siparis'])):
         <a href="index.php" class="btn" style="margin-top:20px">Alışverişe devam et</a>
     </div>
 <?php
-    unset($_SESSION['son_siparis']);
     require __DIR__ . '/includes/footer.php';
     exit;
 endif;
