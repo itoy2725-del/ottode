@@ -26,6 +26,11 @@ if (!$u) {
 
 $sayfaBaslik = $u['ad'];
 require __DIR__ . '/includes/header.php';
+
+$indirimYuzde = null;
+if (!empty($u['eski_fiyat']) && $u['eski_fiyat'] > $u['fiyat']) {
+    $indirimYuzde = round((($u['eski_fiyat'] - $u['fiyat']) / $u['eski_fiyat']) * 100);
+}
 ?>
 <div class="urun">
     <div class="urun-resim">
@@ -34,11 +39,16 @@ require __DIR__ . '/includes/header.php';
     <div class="urun-bilgi">
         <span class="kart-marka"><?= htmlspecialchars($u['marka']) ?></span>
         <h1><?= htmlspecialchars($u['ad']) ?></h1>
-        <div class="fiyat-satir">
-            <span class="fiyat" style="font-size:26px"><?= fiyat($u['fiyat']) ?></span>
-            <?php if (!empty($u['eski_fiyat'])): ?><span class="eski"><?= fiyat($u['eski_fiyat']) ?></span><?php endif; ?>
+        <div class="fiyat-satir" style="margin:12px 0">
+            <span class="fiyat" style="font-size:28px"><?= fiyat($u['fiyat']) ?></span>
+            <?php if (!empty($u['eski_fiyat'])): ?>
+                <span class="eski" style="font-size:18px"><?= fiyat($u['eski_fiyat']) ?></span>
+            <?php endif; ?>
+            <?php if ($indirimYuzde): ?>
+                <span class="indirim-rozet" style="font-size:14px;padding:4px 8px">-<?= $indirimYuzde ?>%</span>
+            <?php endif; ?>
         </div>
-        <p style="margin:14px 0;color:#444"><?= htmlspecialchars($u['aciklama']) ?></p>
+        <p style="margin:14px 0;color:var(--gri-metin)"><?= htmlspecialchars($u['aciklama']) ?></p>
 
         <ul class="urun-ozellik">
             <li><span>Farbe</span><span><?= htmlspecialchars($u['renk']) ?></span></li>
@@ -59,7 +69,7 @@ require __DIR__ . '/includes/header.php';
                 In den Warenkorb
             </button>
         </form>
-        <a href="index.php" style="color:var(--gri);font-size:14px">← Weiter einkaufen</a>
+        <a href="index.php" style="color:var(--gri-metin);font-size:14px;margin-top:12px;display:inline-block">← Weiter einkaufen</a>
     </div>
 </div>
 <?php require __DIR__ . '/includes/footer.php'; ?>
