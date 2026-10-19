@@ -120,7 +120,7 @@ if (!empty($u['kategori'])) {
             </div>
 
             <!-- Sepete ekleme formu -->
-            <form method="post" class="pdp-form">
+            <form method="post" class="pdp-form" id="pdp-addform">
                 <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
                 
                 <div class="pdp-menge">
@@ -237,7 +237,7 @@ if (!empty($u['kategori'])) {
             <span class="pdp-fiyat"><?= fiyat($u['fiyat']) ?></span>
         <?php endif; ?>
     </div>
-    <button type="button" class="pdp-sticky-cta" <?= $u['stok'] < 1 ? 'disabled' : '' ?> onclick="document.querySelector('.pdp-form').submit()">
+    <button type="submit" form="pdp-addform" name="ekle" value="1" class="pdp-sticky-cta" <?= $u['stok'] < 1 ? 'disabled' : '' ?>>
         <?= $u['stok'] > 0 ? 'In den Warenkorb' : 'Ausverkauft' ?>
     </button>
 </div>
