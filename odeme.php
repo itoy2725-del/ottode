@@ -79,11 +79,21 @@ $genelToplam = $araToplam + $kargo;
             </div>
 
             <h3 style="margin-bottom:10px">Zahlungsart</h3>
-            <div class="ozet" style="background:#fff">
-                <label style="display:block;padding:8px 0"><input type="radio" name="odeme" value="kredi" checked> Kredit-/Bankkarte</label>
-                <label style="display:block;padding:8px 0"><input type="radio" name="odeme" value="paypal"> PayPal</label>
-                <label style="display:block;padding:8px 0"><input type="radio" name="odeme" value="havale"> Überweisung</label>
-                <label style="display:block;padding:8px 0"><input type="radio" name="odeme" value="kapida"> Nachnahme</label>
+            <div class="zahlung-optionen">
+                <label class="zahlung-option">
+                    <input type="radio" name="odeme" value="kredi" required>
+                    <span class="zahlung-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+                    </span>
+                    <span class="zahlung-text">Kredit-/Bankkarte</span>
+                </label>
+                <label class="zahlung-option">
+                    <input type="radio" name="odeme" value="havale" required>
+                    <span class="zahlung-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-6 9 6"/><path d="M4 10v9h16v-9"/><line x1="9" y1="14" x2="15" y2="14"/></svg>
+                    </span>
+                    <span class="zahlung-text">Überweisung</span>
+                </label>
             </div>
 
             <button type="submit" name="siparis_ver" value="1" class="btn btn-blok" style="margin-top:20px">
