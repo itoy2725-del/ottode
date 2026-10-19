@@ -461,3 +461,8 @@ body { padding-bottom: 0; }
   .footer-usp { grid-column: 1/-1; }
   .footer-bottom { flex-direction: row; justify-content: space-between; grid-column: 1/-1; }
 }
+
+.adet-stepper { display:inline-flex; align-items:center; border:1px solid var(--oc-divider); border-radius:8px; overflow:hidden; }
+.adet-btn { width:34px; height:34px; border:none; background:var(--oc-canvas-bg); color:var(--oc-text); font-size:18px; line-height:1; font-weight:700; cursor:pointer; }
+.adet-btn:hover { background:var(--oc-frame-bg); color:var(--oc-red); }
+.adet-wert { min-width:36px; text-align:center; font-size:14px; font-weight:700; padding:0 4px; }

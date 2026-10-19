@@ -14,6 +14,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         sepetten_cikar((int)$_POST['cikar']);
     } elseif (isset($_POST['bosalt'])) {
         sepet_bosalt();
+    } elseif (isset($_POST['arttir'])) {
+        $gid = (int) $_POST['arttir'];
+        $s = sepet();
+        sepet_guncelle($gid, ($s[$gid] ?? 0) + 1);
+    } elseif (isset($_POST['azalt'])) {
+        $gid = (int) $_POST['azalt'];
+        $s = sepet();
+        sepet_guncelle($gid, ($s[$gid] ?? 0) - 1);
     }
     header('Location: sepet.php');
     exit;
@@ -56,8 +64,10 @@ require __DIR__ . '/includes/header.php';
                         </td>
                         <td><?= fiyat($u['fiyat']) ?></td>
                         <td>
-                            <div class="adet-form">
-                                <input type="number" name="adet[<?= $u['id'] ?>]" value="<?= $k['adet'] ?>" min="0" max="99">
+                            <div class="adet-stepper">
+                                <button type="submit" name="azalt" value="<?= $u['id'] ?>" class="adet-btn" aria-label="Weniger">&minus;</button>
+                                <span class="adet-wert"><?= $k['adet'] ?></span>
+                                <button type="submit" name="arttir" value="<?= $u['id'] ?>" class="adet-btn" aria-label="Mehr">+</button>
                             </div>
                         </td>
                         <td><?= fiyat($k['arasumma']) ?></td>
@@ -69,7 +79,6 @@ require __DIR__ . '/includes/header.php';
                 </tbody>
             </table>
             <div style="display:flex;gap:10px;margin-top:14px">
-                <button type="submit" name="guncelle" value="1" class="btn btn-ghost">Warenkorb aktualisieren</button>
                 <button type="submit" name="bosalt" value="1" class="btn btn-ghost">Warenkorb leeren</button>
             </div>
         </form>
