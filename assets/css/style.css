@@ -474,5 +474,5 @@ body { padding-bottom: 0; }
 .zahlung-option:has(input:checked) { border-color:var(--oc-red); box-shadow:inset 0 0 0 1px var(--oc-red); }
 .zahlung-icon { display:inline-flex; color:var(--oc-text-secondary); }
 .zahlung-icon svg { width:22px; height:22px; }
-.zahlung-text { font-size:14px; font-weight:600; color:var(--oc-text); }
+.zahlung-text { font-size:14px; font-weight:600; color:var(--oc-text); line-height:1.3; min-width:0; overflow-wrap:anywhere; }
 @media (max-width:400px){ .zahlung-optionen { flex-direction:column; } }
