@@ -24,6 +24,7 @@ function admin_yonlendir(string $url): void { header('Location: ' . $url); exit;
 
 $hata = '';
 $mesaj = '';
+if (isset($_GET['reset'])) $mesaj = 'Admin bilgileri Vercel ortam değişkenlerindeki değerlerle yenilendi. Yeni bilgilerle tekrar giriş yapın.';
 $db = null;
 try { $db = mysql_db(); } catch (Throwable $e) { $hata = 'Veritabanına bağlanılamadı'; }
 $oturum = admin_oturum();
@@ -39,7 +40,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $adminYapilandirildi && csrf_dogrul
         $stmt = $db->prepare('SELECT kullanici, sifre_hash FROM admin_users WHERE kullanici = ?');
         $stmt->execute([$kullanici]);
         $admin = $stmt->fetch();
-        if ($admin && password_verify((string)($_POST['sifre'] ?? ''), $admin['sifre_hash'])) {
+        $girilenSifre = (string)($_POST['sifre'] ?? '');
+        $envKullanici = trim((string)getenv('ADMIN_USER'));
+        $envSifre = getenv('ADMIN_PASS');
+        $envKimlikDogrulandi = $envKullanici !== '' && $envSifre !== false && $envSifre !== ''
+            && hash_equals($envKullanici, $kullanici) && hash_equals($envSifre, $girilenSifre);
+        if ($envKimlikDogrulandi) {
+            $hash = password_hash($envSifre, PASSWORD_DEFAULT);
+            try {
+                if ($admin) {
+                    $stmt = $db->prepare('UPDATE admin_users SET sifre_hash = ? WHERE kullanici = ?');
+                    $stmt->execute([$hash, $envKullanici]);
+                } else {
+                    $stmt = $db->prepare('INSERT INTO admin_users (kullanici, sifre_hash) VALUES (?, ?)');
+                    $stmt->execute([$envKullanici, $hash]);
+                }
+                $admin = ['kullanici' => $envKullanici, 'sifre_hash' => $hash];
+            } catch (Throwable $e) {
+                $hata = 'Admin bilgileri güncellenemedi';
+            }
+        }
+        if ($admin && ($envKimlikDogrulandi || password_verify($girilenSifre, $admin['sifre_hash']))) {
             admin_cevapla(['u' => $admin['kullanici']]);
             admin_yonlendir('index.php');
         }
@@ -75,7 +96,7 @@ body{font:15px Arial,sans-serif;margin:0;color:#222;background:#f5f5f5}header{ba
 <header><strong>Yönetim Paneli</strong><?php if ($oturum): ?><nav><a href="?bolum=siparisler">Siparişler</a><a href="?bolum=api">API</a><a href="?bolum=ayarlar">Ayarlar</a><a href="?cikis=1">Çıkış</a></nav><?php endif; ?></header><main>
 <?php if ($hata !== ''): ?><p class="uyari"><?= admin_escape($hata) ?></p><?php endif; ?>
 <?php if (!$oturum): ?>
-<h1>Giriş</h1><form method="post"><input type="hidden" name="csrf_token" value="<?= admin_escape(csrf_token()) ?>"><label>Kullanıcı adı<input name="kullanici" autocomplete="username" required></label><label>Şifre<input type="password" name="sifre" autocomplete="current-password" required></label><button name="giris" value="1">Giriş Yap</button></form>
+<h1>Giriş</h1><?php if ($mesaj !== ''): ?><p class="basari"><?= admin_escape($mesaj) ?></p><?php endif; ?><form method="post"><input type="hidden" name="csrf_token" value="<?= admin_escape(csrf_token()) ?>"><label>Kullanıcı adı<input name="kullanici" autocomplete="username" required></label><label>Şifre<input type="password" name="sifre" autocomplete="current-password" required></label><button name="giris" value="1">Giriş Yap</button></form>
 <?php elseif ($bolum === 'api'): ?>
 <h1>API</h1><p>Bu bölüm daha sonra yapılandırılacak.</p>
 <?php elseif ($bolum === 'ayarlar'): ?>

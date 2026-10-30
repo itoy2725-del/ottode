@@ -49,9 +49,9 @@ function mysql_init_schema(PDO $db): void {
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
 
     $count = (int)$db->query('SELECT COUNT(*) FROM admin_users')->fetchColumn();
-    $adminUser = getenv('ADMIN_USER');
+    $adminUser = trim((string)getenv('ADMIN_USER'));
     $adminPass = getenv('ADMIN_PASS');
-    if ($count === 0 && $adminUser !== false && $adminUser !== '' && $adminPass !== false && $adminPass !== '') {
+    if ($count === 0 && $adminUser !== '' && $adminPass !== false && $adminPass !== '') {
         $stmt = $db->prepare('INSERT INTO admin_users (kullanici, sifre_hash) VALUES (?, ?)');
         $stmt->execute([$adminUser, password_hash($adminPass, PASSWORD_DEFAULT)]);
     }
