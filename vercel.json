@@ -3,12 +3,12 @@
     {
       "src": "*.php",
       "use": "vercel-php@0.9.0",
-      "config": { "includeFiles": "{includes,data}/**" }
+      "config": { "includeFiles": ["includes/**", "data/**"] }
     },
     {
       "src": "admin/*.php",
       "use": "vercel-php@0.9.0",
-      "config": { "includeFiles": "{includes,data}/**" }
+      "config": { "includeFiles": ["includes/**", "data/**"] }
     },
     { "src": "assets/**", "use": "@vercel/static" }
   ],
