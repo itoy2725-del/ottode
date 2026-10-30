@@ -27,10 +27,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['siparis_ver'])) {
         'kalemler' => sepet_kalemleri(),
     ];
     
-    // Siparişi dosyaya kaydet (serverless: yalnızca /tmp yazılabilir)
-    $ordersDir = sys_get_temp_dir() . '/ottode_orders';
-    if (!is_dir($ordersDir)) @mkdir($ordersDir, 0755, true);
-    @file_put_contents($ordersDir . '/' . $no . '.json', json_encode($siparis, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    // MySQL erişimi başarısız olsa da müşteri checkout akışı devam eder.
+    try {
+        require_once __DIR__ . '/includes/mysql.php';
+        $db = mysql_db();
+        $ad = $siparis['adres'];
+        $db->prepare('INSERT INTO orders (bestellnr,kunde_name,email,telefon,strasse,plz,ort,zahlungsart,summe) VALUES (?,?,?,?,?,?,?,?,?)')->execute([
+            $siparis['no'], trim(($ad['ad'] ?? '') . ' ' . ($ad['soyad'] ?? '')), $ad['email'] ?? '',
+            $ad['telefon'] ?? '', $ad['adres'] ?? '', $ad['posta'] ?? '', $ad['sehir'] ?? '',
+            $siparis['odeme'], $siparis['toplam'],
+        ]);
+        $itemStmt = $db->prepare('INSERT INTO order_items (bestellnr,produkt_id,name,preis,menge) VALUES (?,?,?,?,?)');
+        foreach ($siparis['kalemler'] as $kalem) {
+            $itemStmt->execute([$siparis['no'], $kalem['urun']['id'], $kalem['urun']['ad'], $kalem['urun']['fiyat'], $kalem['adet']]);
+        }
+    } catch (Throwable $e) {
+        // Sipariş onayı MySQL kesintisinde de gösterilir.
+    }
 
     cookie_yaz('son_siparis', $siparis);
     sepet_bosalt();

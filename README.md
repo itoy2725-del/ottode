@@ -37,9 +37,8 @@ Vercel PHP'yi [`vercel-php`](https://github.com/vercel-community/php) community 
 
 > Not: Vercel serverless'tır; `$_SESSION` dosyaları geçici (`/tmp`) alanda tutulur ve örnekler arası paylaşılmaz. Demo için yeterlidir; üretimde sepet/oturum için harici bir store (Redis, DB, imzalı cookie) gerekir.
 
-## Yol haritası
-- [ ] Ürün verisini gerçek DB'ye taşı (SQLite/MySQL)
-- [ ] Oturum/sepeti imzalı cookie veya KV store'a al (serverless uyumu)
-- [ ] Form doğrulama + CSRF token
-- [ ] Gerçek ürün görselleri ve kategoriler
-- [ ] Admin paneli
+## MySQL & Admin
+
+MySQL sipariş kaydı ve yönetim paneli için aşağıdaki ortam değişkenlerini yerelde veya Vercel Project Settings içinde tanımlayın: `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASS`, `ADMIN_USER`, `ADMIN_PASS`, `COOKIE_SECRET`. Şifreler kaynak koda eklenmez. `data/ca.pem` Aiven CA sertifikasıdır.
+
+Yönetim paneline `/admin/` adresinden `ADMIN_USER` ve `ADMIN_PASS` ile ilk kez giriş yapın; sonrasında şifreyi Ayarlar bölümünden değiştirebilirsiniz.

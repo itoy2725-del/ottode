@@ -1,11 +1,7 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
+define('COOKIE_SECRET', (string)(getenv('COOKIE_SECRET') ?: ''));
 define('SITE_ADI', 'ottode');
 define('PARA', '€');
-define('COOKIE_SECRET', 'gizli-anahtar-2024-ottode-' . ($_SERVER['HTTP_HOST'] ?? 'localhost'));
 
 // DB bağlantısı
 require_once __DIR__ . '/../data/db.php';
