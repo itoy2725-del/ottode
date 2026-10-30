@@ -27,11 +27,13 @@ $mesaj = '';
 $db = null;
 try { $db = mysql_db(); } catch (Throwable $e) { $hata = 'Veritabanına bağlanılamadı'; }
 $oturum = admin_oturum();
+$adminYapilandirildi = getenv('COOKIE_SECRET') !== false && getenv('COOKIE_SECRET') !== '';
+if (!$adminYapilandirildi) $hata = 'Admin yapılandırılmamış: COOKIE_SECRET ortam değişkeni eksik';
 $bolum = $_GET['bolum'] ?? 'siparisler';
 $bolumler = ['siparisler', 'api', 'ayarlar'];
 if (!in_array($bolum, $bolumler, true)) $bolum = 'siparisler';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && csrf_dogrula() && $db instanceof PDO) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $adminYapilandirildi && csrf_dogrula() && $db instanceof PDO) {
     if (isset($_POST['giris'])) {
         $kullanici = trim((string)($_POST['kullanici'] ?? ''));
         $stmt = $db->prepare('SELECT kullanici, sifre_hash FROM admin_users WHERE kullanici = ?');
@@ -55,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && csrf_dogrula() && $db instanceof PD
             $mesaj = 'Şifre güncellendi';
         }
     }
-} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && $hata === '') {
     $hata = 'Güvenlik doğrulaması başarısız';
 }
 if (isset($_GET['cikis'])) {
