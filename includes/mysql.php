@@ -14,8 +14,17 @@ function mysql_db(): PDO {
     $dsn = 'mysql:host=' . $host . ';port=' . (getenv('DB_PORT') ?: '3306') . ';dbname=' . $name . ';charset=utf8mb4';
     $opt = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC];
     $ca = __DIR__ . '/../data/ca.pem';
-    if (is_file($ca)) $opt[PDO::MYSQL_ATTR_SSL_CA] = $ca;
-    else $opt[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
+    if (is_file($ca)) {
+        $sslCa = defined('Pdo\\Mysql::ATTR_SSL_CA')
+            ? constant('Pdo\\Mysql::ATTR_SSL_CA')
+            : PDO::MYSQL_ATTR_SSL_CA;
+        $opt[$sslCa] = $ca;
+    } else {
+        $sslVerify = defined('Pdo\\Mysql::ATTR_SSL_VERIFY_SERVER_CERT')
+            ? constant('Pdo\\Mysql::ATTR_SSL_VERIFY_SERVER_CERT')
+            : PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT;
+        $opt[$sslVerify] = false;
+    }
 
     $pdo = new PDO($dsn, $user, $pass, $opt);
     mysql_init_schema($pdo);
